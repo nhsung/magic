@@ -1,0 +1,13 @@
+# Install - https://github.com/timvisee/ffsend/releases
+# MAC
+brew install ffsend
+
+
+# Upload
+ffsend upload ./ffsend-v0.2.65-linux-x64-static
+# Upload using my own host
+ffsend u -h https://nhsung.synology.me/ my-file.txt
+
+
+# Download
+ffsend download https://send.firefox.com/#sample-share-url

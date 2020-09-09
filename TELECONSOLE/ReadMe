@@ -1,0 +1,6 @@
+# SERVER
+curl https://www.teleconsole.com/get.sh | sh
+teleconsole
+
+# CLIENT
+teleconsole join [id]
