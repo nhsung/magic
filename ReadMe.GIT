@@ -16,6 +16,7 @@ git config --global alias.pretty "log --all --decorate --oneline --graph"
 
 
 git add .
+#git add -A
 git status
 git commit -m "commit - init"
 git push
