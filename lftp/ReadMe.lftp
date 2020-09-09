@@ -1,0 +1,2 @@
+mkdir -p ~/.lftp/
+cp -p ./rc  ~/.lftp/

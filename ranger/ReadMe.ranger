@@ -1,0 +1,4 @@
+git clone https://github.com/hut/ranger.git
+
+cd ranger
+sudo make install

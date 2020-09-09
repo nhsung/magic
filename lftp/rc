@@ -1,0 +1,114 @@
+# Prompt
+#set prompt "\[\033[36m\]\u\[\033[32m\]\@\[\033[36m\]\h\[\033[33m\]:lftp\[\033[32m\] [\[\033[32m\]\w\[\033[32m\]] \[\033[0m\]"
+set prompt "\[\e[0;32m\]┌┼───┤\[\e[1;33m\] [lftp] \[\e[0;36m\]\u\[\e[0;33m\]\@\[\e[0;36m\]\h \[\e[0;32m\]├───┤\[\e[0;33m\]\w\[\e[0;32m\]├───\n└┼─\[\e[1;33m\]$\[\e[0;32m\]─┤► :\[\e[0m\] "
+
+# COLORIZE
+set color:dir-colors "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;3
+set color:use-color auto
+
+# Solutions for cert refusal
+set ssl:verify-certificate no  
+set sftp:auto-confirm yes
+
+# Solutions for slow resolving
+set dns:order "inet inet6"
+
+# maximum number of concurrent connections to the same site. 0 means unlimited.
+set net:connection-limit 5
+
+# if true, lftp will try to set up source ftp server in passive mode first, otherwise destination one. If first 
+# attempt fails, lftp tries to set them up the other way. If the other disposition fails too, lftp falls back to 
+# plain copy. See also ftp:use-fxp. 
+#set ftp:fxp-passive-source yes
+#set ftp:passive-mode off
+
+# Bookmark
+set bmk:save-passwords true 
+
+# HTTP Redirction
+set xfer:max-redirections 10
+
+# NETWOR
+set net:timeout 5
+set net:reconnect-interval-base 3
+set net:reconnect-interval-max 1
+set net:reconnect-interval-multiplier 1
+set net:max-retries 3
+set net:persist-retries 3
+
+# BOX.COM Tunning
+set ftps:initial-prot ""
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+# speed up the backup
+set ftp:use-mode-z true
+set ftp:mode-z-level 9
+set mirror:parallel-directories true
+# must be lower than 40, otherwise the error message is "Login rejected: Limit of 40 logins per user already reached"
+set  mirror:parallel-transfer-count 39
+
+# important if you're on a NAT network
+set passive true
+
+# if this setting is off, get commands will not overwrite existing files and generate an error instead. Default is on.
+set xfer:clobber on
+
+# Remember Last visting site
+## open last
+set at-exit "bo a last"
+
+
+# ALIAS
+#
+alias passive_off "set ftp:passive-mode off"
+alias ls "cls -D --sort=date -al"
+alias lls "\!ls"
+alias lpwd "\!pwd"
+alias mkdir mkdir -p
+alias k  kill
+alias kall "kill all"
+alias j  jobs
+alias jv "jobs -v"
+alias q  queue
+alias qstop "queue stop"
+alias qpget  "queue pget -c -n 10"
+alias pget  "pget -c -n 10"
+alias bl "bookmark list"
+alias be "bookmark edit"
+alias ba "bookmark add"
+alias vi edit
+alias get get -a
+alias put put -a
+alias mget mget -a
+alias mput mput -a
+
+# Segmented download
+#alias m  mirror -c -a --use-pget-n=5
+# Parallel download	
+#alias m mirror -c --parallel=5
+
+
+
+
+# Mirror with segmented & parallel,         remote -> local
+alias mirror  mirror -c -e -vvv --use-pget-n=10 --parallel=10
+# reverse Mirror with segmented & parallel, local -> remote
+alias rmirror  mirror -c -a -e -vvv -R --use-pget-n=10 --parallel=10
+
+
+
+
+# Example
+# q pget download.file
+# jv
+
+# remote -> local, downloading
+#mirror {directory|filename}
+#lftp -c "mirror -c -e ftp://id:pass@sysdba.net/ /target" 
+
+# local  -> remote, uploading
+#mirror -R {directory|filename} 
+#lftp -c "mirror -c -e -R ftp://id:pass@sysdba.net/ /target" 
+
+# upload 10 files at the same time
+#mirror -R -P 10
