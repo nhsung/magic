@@ -1,0 +1,21 @@
+rm -rf .git
+git init                                    # branch that is named as master is created as default , git branch
+git config --global credential.helper store # AUTH - Permenent
+#git config credential.helper cache         # AUTH - Temporary
+#git config credential.helper 'cache --timeout=3600'
+git config --global user.email "nhsung@gmail.com"
+git config --global user.name "nhsung"
+git config --global core.editor vi
+git config --global merge.tool  vimdiff
+git config core.sparseCheckout  true    # can be possilbe for downloading a specific directory
+git config color.ui true
+git config format.pretty oneline
+git config --global --list
+# alias
+git config --global alias.pretty "log --all --decorate --oneline --graph"
+
+
+git add .
+git status
+git commit -m "commit - init"
+git push
